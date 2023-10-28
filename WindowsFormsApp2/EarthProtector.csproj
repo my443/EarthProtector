@@ -89,5 +89,8 @@
     <None Include="readme.md" />
     <None Include="Resources\bomber-sprite.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\crosshair089.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

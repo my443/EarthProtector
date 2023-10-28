@@ -121,4 +121,7 @@
   <data name="bomber_sprite" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bomber-sprite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="crosshair089" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\crosshair089.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
