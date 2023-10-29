@@ -84,11 +84,7 @@ namespace WindowsFormsApp2
 				playerSprite.X += moveDistance;
 				playerSprite.Y += moveDistance;
 			}
-			else if (moveMissileScope("fire"))
-			{
-				Console.WriteLine("fired a missile");
-				fireMissile();
-			}
+
 		}
 
 		public void Draw(Graphics gfx)
@@ -103,9 +99,14 @@ namespace WindowsFormsApp2
 		private bool moveMissileScope(string direction)
 		{
 			bool returnValue;
+			if ((Keyboard.GetKeyStates(Key.Space) & KeyStates.Down) > 0)
+			{
+				fireMissile();
+			}
 			switch (direction) {
 				case "right":
 					{
+
 						returnValue = ((Keyboard.GetKeyStates(Key.Right) & KeyStates.Down) > 0) || ((Keyboard.GetKeyStates(Key.NumPad6) & KeyStates.Down) > 0);
 						break;
 					}
