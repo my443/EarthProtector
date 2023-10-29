@@ -11,7 +11,7 @@ We call people who have risen to the call **Earth Protectors**.
 
 
 ## Game Play
-Use the arrow keys or joystick to aim your laser-missiles: Space-bar or the A button on the joystick fires. 
+Use the arrow keys or number pad to aim your laser-missiles: Space-bar fires your missiles. 
 
 Your missile-launcher has some protection built in, but if you are hit directly three times your launcher will be destroyed. Earth Protectors refer to each direct hit as 'losing a life.'
 

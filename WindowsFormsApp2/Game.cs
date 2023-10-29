@@ -19,7 +19,7 @@ namespace WindowsFormsApp2
 			// Load new sprite class
 			playerSprite = new GameSprite();
 			// Load sprite image
-			playerSprite.SpriteImage = Properties.Resources.bomber_sprite;
+			playerSprite.SpriteImage = Properties.Resources.crosshair089;
 			// Set sprite height & width in pixels
 			playerSprite.Width = playerSprite.SpriteImage.Width;
 			playerSprite.Height = playerSprite.SpriteImage.Height;
@@ -27,7 +27,7 @@ namespace WindowsFormsApp2
 			playerSprite.X = 300;
 			playerSprite.Y = 300;
 			// Set sprite Velocity
-			playerSprite.Velocity = 300;
+			playerSprite.Velocity = 100;
 		}
 
 		public void Unload()
@@ -44,20 +44,40 @@ namespace WindowsFormsApp2
 			int moveDistance = (int)(playerSprite.Velocity * gameTimeElapsed);
 
 			// Move player sprite, when Arrow Keys are pressed on Keyboard
-			if ((Keyboard.GetKeyStates(Key.Right) & KeyStates.Down) > 0)
+			if (moveMissileScope("right"))
 			{
 				playerSprite.X += moveDistance;
 			}
-			else if ((Keyboard.GetKeyStates(Key.Left) & KeyStates.Down) > 0)
+			else if (moveMissileScope("left"))
 			{
 				playerSprite.X -= moveDistance;
 			}
-			else if ((Keyboard.GetKeyStates(Key.Up) & KeyStates.Down) > 0)
+			else if (moveMissileScope("up"))
 			{
 				playerSprite.Y -= moveDistance;
 			}
-			else if ((Keyboard.GetKeyStates(Key.Down) & KeyStates.Down) > 0)
+			else if (moveMissileScope("down"))
 			{
+				playerSprite.Y += moveDistance;
+			}
+			else if (moveMissileScope("up-left"))
+			{
+				playerSprite.X -= moveDistance;
+				playerSprite.Y -= moveDistance;
+			}
+			else if (moveMissileScope("up-right"))
+			{
+				playerSprite.X += moveDistance;
+				playerSprite.Y -= moveDistance;
+			}
+			else if (moveMissileScope("down-left"))
+			{
+				playerSprite.X -= moveDistance;
+				playerSprite.Y += moveDistance;
+			}
+			else if (moveMissileScope("down-right"))
+			{
+				playerSprite.X += moveDistance;
 				playerSprite.Y += moveDistance;
 			}
 		}
@@ -70,5 +90,63 @@ namespace WindowsFormsApp2
 			// Draw Player Sprite
 			playerSprite.Draw(gfx);
 		}
+
+		private bool moveMissileScope(string direction)
+		{
+			bool returnValue;
+			switch (direction) {
+				case "right":
+					{
+						returnValue = ((Keyboard.GetKeyStates(Key.Right) & KeyStates.Down) > 0) || ((Keyboard.GetKeyStates(Key.NumPad6) & KeyStates.Down) > 0);
+						break;
+					}
+				case "left":
+					{
+						returnValue = ((Keyboard.GetKeyStates(Key.Left) & KeyStates.Down) > 0) || ((Keyboard.GetKeyStates(Key.NumPad4) & KeyStates.Down) > 0);
+						break;
+					}
+				case "up":
+					{
+						returnValue = ((Keyboard.GetKeyStates(Key.Up) & KeyStates.Down) > 0) || ((Keyboard.GetKeyStates(Key.NumPad8) & KeyStates.Down) > 0);
+						break;
+					}
+				case "down":
+					{
+						returnValue = ((Keyboard.GetKeyStates(Key.Down) & KeyStates.Down) > 0) || ((Keyboard.GetKeyStates(Key.NumPad2) & KeyStates.Down) > 0);
+						break;
+					}
+				case "up-right":
+					{
+						returnValue = ((Keyboard.GetKeyStates(Key.NumPad9) & KeyStates.Down) > 0);
+						break;
+					}
+				case "up-left":
+					{
+						returnValue = ((Keyboard.GetKeyStates(Key.NumPad7) & KeyStates.Down) > 0); 
+						break;
+					}
+				case "down-right":
+					{
+						returnValue = ((Keyboard.GetKeyStates(Key.NumPad3) & KeyStates.Down) > 0); 
+						break;
+					}
+				case "down-left":
+					{
+						returnValue = ((Keyboard.GetKeyStates(Key.NumPad1) & KeyStates.Down) > 0); 
+						break;
+					}
+				default:
+					returnValue = false;
+					break;
+
+			}
+
+
+			return returnValue;
+
+		}
+
+
+
 	}
 }

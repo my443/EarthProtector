@@ -24,7 +24,6 @@ namespace WindowsFormsApp2
 		{
 			// Draw sprite image on screen
 			gfx.DrawImage(SpriteImage, new RectangleF(X, Y, Width, Height));
-			Console.WriteLine("soemthing works");
 		}
 	}
 }
