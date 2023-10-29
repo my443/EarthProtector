@@ -96,5 +96,8 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\crosshair159.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

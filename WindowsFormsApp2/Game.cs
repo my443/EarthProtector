@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media.Media3D;
+//using System.Windows.Media;
+
 
 namespace WindowsFormsApp2
 {
@@ -80,6 +84,11 @@ namespace WindowsFormsApp2
 				playerSprite.X += moveDistance;
 				playerSprite.Y += moveDistance;
 			}
+			else if (moveMissileScope("fire"))
+			{
+				Console.WriteLine("fired a missile");
+				fireMissile();
+			}
 		}
 
 		public void Draw(Graphics gfx)
@@ -135,14 +144,26 @@ namespace WindowsFormsApp2
 						returnValue = ((Keyboard.GetKeyStates(Key.NumPad1) & KeyStates.Down) > 0); 
 						break;
 					}
+				case "fire":
+					{
+						returnValue = ((Keyboard.GetKeyStates(Key.Space) & KeyStates.Down) > 0);
+						break;
+					}
 				default:
 					returnValue = false;
 					break;
 
 			}
 
-
 			return returnValue;
+
+		}
+
+
+		async Task fireMissile() {
+			playerSprite.SpriteImage = Properties.Resources.crosshair159;
+			await Task.Delay(250);
+			playerSprite.SpriteImage = Properties.Resources.crosshair089;
 
 		}
 
