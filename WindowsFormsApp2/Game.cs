@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -15,6 +16,7 @@ namespace WindowsFormsApp2
 	class Game
 	{
 		private GameSprite playerSprite;
+		private SoundPlayer laserSound;
 
 		public Size Resolution { get; set; }
 
@@ -32,6 +34,9 @@ namespace WindowsFormsApp2
 			playerSprite.Y = 300;
 			// Set sprite Velocity
 			playerSprite.Velocity = 100;
+
+			laserSound = new SoundPlayer(Properties.Resources.alien_blaster);
+			laserSound.Play();
 		}
 
 		public void Unload()
@@ -102,6 +107,7 @@ namespace WindowsFormsApp2
 			if ((Keyboard.GetKeyStates(Key.Space) & KeyStates.Down) > 0)
 			{
 				fireMissile();
+				//playLaser();
 			}
 			switch (direction) {
 				case "right":
@@ -163,9 +169,13 @@ namespace WindowsFormsApp2
 
 		async Task fireMissile() {
 			playerSprite.SpriteImage = Properties.Resources.crosshair159;
+			
 			await Task.Delay(250);
 			playerSprite.SpriteImage = Properties.Resources.crosshair089;
+		}
 
+		private void playLaser() { 
+			laserSound.PlaySync();
 		}
 
 

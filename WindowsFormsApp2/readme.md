@@ -22,3 +22,5 @@ This game is a foray into game programming in C#.
 A special thanks to Thomas Marco de Haan and his template on [Codmentor](https://www.codementor.io/@dewetvanthomas/tutorial-game-loop-for-c-128ovxgrig) for helping me get a quick start.
 
 Crosshairs provided by the [Kenney Crosshair Pack](https://www.kenney.nl/assets/crosshair-pack) licenced under the [Creative Commons CC0](https://creativecommons.org/publicdomain/zero/1.0/)
+
+Alien Blaster Sound from [here](https://opengameart.org/content/alien-blaster)
