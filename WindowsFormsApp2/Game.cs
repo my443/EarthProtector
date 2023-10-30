@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media.Media3D;
+using System.Windows.Forms;
 //using System.Windows.Media;
 
 
@@ -17,6 +18,11 @@ namespace WindowsFormsApp2
 	{
 		private GameSprite playerSprite;
 		private SoundPlayer laserSound;
+
+		// To limit the time number of keypresses
+		private Timer inputRateLimitTimer;
+		private bool canProcessInput = true;
+		private int inputRateLimitMilliseconds = 200;
 
 		public Size Resolution { get; set; }
 
@@ -37,6 +43,12 @@ namespace WindowsFormsApp2
 
 			laserSound = new SoundPlayer(Properties.Resources.alien_blaster);
 			laserSound.Play();
+
+			// Rate limiting for keypress
+			inputRateLimitTimer = new Timer();
+			inputRateLimitTimer.Interval = inputRateLimitMilliseconds;
+			inputRateLimitTimer.Tick += InputRateLimitTimer_Tick;
+			inputRateLimitTimer.Start();
 		}
 
 		public void Unload()
@@ -46,11 +58,14 @@ namespace WindowsFormsApp2
 		}
 
 		public void Update(TimeSpan gameTime)
-		{
+		{	
+
+
 			// Gametime elapsed
 			double gameTimeElapsed = gameTime.TotalMilliseconds / 1000;
 			// Calculate sprite movement based on Sprite Velocity and GameTimeElapsed
 			int moveDistance = (int)(playerSprite.Velocity * gameTimeElapsed);
+
 
 			// Move player sprite, when Arrow Keys are pressed on Keyboard
 			if (moveMissileScope("right"))
@@ -90,6 +105,14 @@ namespace WindowsFormsApp2
 				playerSprite.Y += moveDistance;
 			}
 
+
+
+			//	canProcessInput = false; // Disable input processing
+
+			//	// Start the timer to re-enable input processing
+			//	inputRateLimitTimer.Start();
+			//}
+
 		}
 
 		public void Draw(Graphics gfx)
@@ -104,10 +127,18 @@ namespace WindowsFormsApp2
 		private bool moveMissileScope(string direction)
 		{
 			bool returnValue;
-			if ((Keyboard.GetKeyStates(Key.Space) & KeyStates.Down) > 0)
-			{
-				fireMissile();
-				//playLaser();
+			if (canProcessInput) {
+				if ((Keyboard.GetKeyStates(Key.Space) & KeyStates.Down) > 0)
+				{
+					Console.WriteLine("FIRED A MISSILE.");
+					fireMissile();
+
+				}
+
+				canProcessInput = false; // Disable input processing
+
+				// Start the timer to re-enable input processing
+				inputRateLimitTimer.Start();
 			}
 			switch (direction) {
 				case "right":
@@ -169,16 +200,23 @@ namespace WindowsFormsApp2
 
 		async Task fireMissile() {
 			playerSprite.SpriteImage = Properties.Resources.crosshair159;
-			
+			playLaser();
 			await Task.Delay(250);
 			playerSprite.SpriteImage = Properties.Resources.crosshair089;
+
 		}
 
-		private void playLaser() { 
-			laserSound.PlaySync();
+		private void playLaser() {
+			Task.Run(() => laserSound.Play()); 
 		}
 
 
+
+		private void InputRateLimitTimer_Tick(object sender, EventArgs e)
+		{
+			canProcessInput = true;		// Re-enable input processing
+			inputRateLimitTimer.Stop(); // Stop the timer until the next keypress
+		}
 
 	}
 }

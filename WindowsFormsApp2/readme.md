@@ -24,3 +24,11 @@ A special thanks to Thomas Marco de Haan and his template on [Codmentor](https:/
 Crosshairs provided by the [Kenney Crosshair Pack](https://www.kenney.nl/assets/crosshair-pack) licenced under the [Creative Commons CC0](https://creativecommons.org/publicdomain/zero/1.0/)
 
 Alien Blaster Sound from [here](https://opengameart.org/content/alien-blaster)
+
+
+
+## TODOs
+
+These are future items that can be improved or addressed. 
+
+1. The sound and change in crosshairs can be a bit smoother. Even though they are mostly in sync, some attention could be paid to making this even better.
