@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media.Media3D;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 //using System.Windows.Media;
 
 
@@ -18,6 +19,7 @@ namespace WindowsFormsApp2
 	{
 		private GameSprite playerSprite;
 		private SoundPlayer laserSound;
+		private SpaceShip ship;
 
 		// To limit the time number of keypresses
 		private Timer inputRateLimitTimer;
@@ -42,13 +44,20 @@ namespace WindowsFormsApp2
 			playerSprite.Velocity = 250;
 
 			laserSound = new SoundPlayer(Properties.Resources.alien_blaster);
-			laserSound.Play();
+			//laserSound.Play();
 
 			// Rate limiting for keypress
 			inputRateLimitTimer = new Timer();
 			inputRateLimitTimer.Interval = inputRateLimitMilliseconds;
 			inputRateLimitTimer.Tick += InputRateLimitTimer_Tick;
 			inputRateLimitTimer.Start();
+
+			ship = new SpaceShip();
+			ship.X = 200;
+			ship.Y = 200;
+			ship.SpriteImage = Properties.Resources.enemyShip;
+			ship.Width = ship.SpriteImage.Width;
+			ship.Height = ship.SpriteImage.Height;
 		}
 
 		public void Unload()
@@ -120,8 +129,10 @@ namespace WindowsFormsApp2
 			// Draw Background Color
 			gfx.FillRectangle(new SolidBrush(Color.CornflowerBlue), new Rectangle(0, 0, Resolution.Width, Resolution.Height));
 
-			// Draw Player Sprite
+			// Draw Graphics
+			ship.Draw(gfx);
 			playerSprite.Draw(gfx);
+
 		}
 
 		private bool moveMissileScope(string direction)
@@ -197,6 +208,16 @@ namespace WindowsFormsApp2
 
 
 		async Task fireMissile() {
+			if (checkIfHitShip())
+			{
+				explodeShip();
+				Console.WriteLine("hit the ship"); 
+			}
+			else
+			{
+				Console.WriteLine("completely missed.");
+			}
+
 			playerSprite.SpriteImage = Properties.Resources.crosshair159;
 			playLaser();
 			await Task.Delay(250);
@@ -214,6 +235,25 @@ namespace WindowsFormsApp2
 		{
 			canProcessInput = true;		// Re-enable input processing
 			inputRateLimitTimer.Stop(); // Stop the timer until the next keypress
+		}
+
+		// TODO: Honestly, I'd rather pass the Gamesprite and ShipSprite in as parameters. 
+		private bool checkIfHitShip()
+		{
+
+			RectangleF shipRectangle = new RectangleF(ship.X, ship.Y, ship.Width, ship.Height);
+			RectangleF playerRectangle = new RectangleF(playerSprite.X, playerSprite.Y, playerSprite.Width, playerSprite.Height);
+
+			if (playerRectangle.Contains(shipRectangle)) { return true; }
+			else { return false; }
+
+		}
+
+		// TODO: Have parameters to identify **which** ship explodes.
+		async Task explodeShip() {
+			ship.SpriteImage = Properties.Resources.explosion;
+			await Task.Delay(250);
+			ship.SpriteImage = null;
 		}
 
 	}

@@ -121,13 +121,16 @@
   <data name="alien_blaster" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\alien-blaster.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="bomber_sprite" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bomber-sprite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="crosshair089" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\crosshair089.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="crosshair159" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\crosshair159.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="enemyShip" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\enemyShip.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="explosion" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\laserRedShot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
