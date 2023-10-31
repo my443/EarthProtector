@@ -39,7 +39,7 @@ namespace WindowsFormsApp2
 			playerSprite.X = 300;
 			playerSprite.Y = 300;
 			// Set sprite Velocity
-			playerSprite.Velocity = 100;
+			playerSprite.Velocity = 250;
 
 			laserSound = new SoundPlayer(Properties.Resources.alien_blaster);
 			laserSound.Play();
@@ -130,9 +130,7 @@ namespace WindowsFormsApp2
 			if (canProcessInput) {
 				if ((Keyboard.GetKeyStates(Key.Space) & KeyStates.Down) > 0)
 				{
-					Console.WriteLine("FIRED A MISSILE.");
 					fireMissile();
-
 				}
 
 				canProcessInput = false; // Disable input processing

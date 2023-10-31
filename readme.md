@@ -11,11 +11,25 @@ We call people who have risen to the call **Earth Protectors**.
 
 
 ## Game Play
-Use the arrow keys or joystick to aim your laser-missiles: Space-bar or the A button on the joystick fires. 
+Use the arrow keys or number pad to aim your laser-missiles: Space-bar fires your missiles. 
 
 Your missile-launcher has some protection built in, but if you are hit directly three times your launcher will be destroyed. Earth Protectors refer to each direct hit as 'losing a life.'
 
 ## Code Details
 This game is a foray into game programming in C#.
- 
+
+## Attributions 
 A special thanks to Thomas Marco de Haan and his template on [Codmentor](https://www.codementor.io/@dewetvanthomas/tutorial-game-loop-for-c-128ovxgrig) for helping me get a quick start.
+
+Crosshairs provided by the [Kenney Crosshair Pack](https://www.kenney.nl/assets/crosshair-pack) licenced under the [Creative Commons CC0](https://creativecommons.org/publicdomain/zero/1.0/)
+
+Alien Blaster Sound from [here](https://opengameart.org/content/alien-blaster)
+
+Graphics for space ships [Spaceart](https://opengameart.org/content/space-shooter-art)
+
+
+## TODOs
+
+These are future items that can be improved or addressed. 
+
+1. The sound and change in crosshairs can be a bit smoother. Even though they are mostly in sync, some attention could be paid to making this even better.
