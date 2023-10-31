@@ -30,6 +30,8 @@ namespace WindowsFormsApp2
 
 		public void Load()
 		{
+			Rectangle resolution = Screen.PrimaryScreen.Bounds;
+
 			// Load new sprite class
 			playerSprite = new GameSprite();
 			// Load sprite image
@@ -38,8 +40,8 @@ namespace WindowsFormsApp2
 			playerSprite.Width = playerSprite.SpriteImage.Width;
 			playerSprite.Height = playerSprite.SpriteImage.Height;
 			// Set sprite coodinates
-			playerSprite.X = 300;
-			playerSprite.Y = 300;
+			playerSprite.X = resolution.Width / 2 ;
+			playerSprite.Y = resolution.Bottom - 200;
 			// Set sprite Velocity
 			playerSprite.Velocity = 250;
 
@@ -58,6 +60,8 @@ namespace WindowsFormsApp2
 			ship.SpriteImage = Properties.Resources.enemyShip;
 			ship.Width = ship.SpriteImage.Width;
 			ship.Height = ship.SpriteImage.Height;
+
+
 		}
 
 		public void Unload()
