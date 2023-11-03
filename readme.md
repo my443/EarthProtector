@@ -27,6 +27,8 @@ Alien Blaster Sound from [here](https://opengameart.org/content/alien-blaster)
 
 Graphics for space ships [Spaceart](https://opengameart.org/content/space-shooter-art)
 
+Graphics for explosions [Smoke Particles](https://kenney.nl/assets/smoke-particles)
+
 
 ## TODOs
 

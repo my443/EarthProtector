@@ -10,6 +10,9 @@ using System.Windows.Input;
 using System.Windows.Media.Media3D;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using Windows.Gaming.Input;
+using Windows.Gaming.UI;
+
 //using System.Windows.Media;
 
 
@@ -17,6 +20,8 @@ namespace WindowsFormsApp2
 {
 	class Game
 	{
+		private Gamepad gamepad;
+
 		private GameSprite playerSprite;
 		private SoundPlayer laserSound;
 		private SpaceShip ship;
@@ -25,11 +30,16 @@ namespace WindowsFormsApp2
 		private Timer inputRateLimitTimer;
 		private bool canProcessInput = true;
 		private int inputRateLimitMilliseconds = 200;
+		
+		//private bool spaceToggleFlag = false;
 
 		public Size Resolution { get; set; }
 
 		public void Load()
 		{
+
+
+
 			Rectangle resolution = Screen.PrimaryScreen.Bounds;
 
 			// Load new sprite class
@@ -71,7 +81,21 @@ namespace WindowsFormsApp2
 		}
 
 		public void Update(TimeSpan gameTime)
-		{	
+		{
+
+			gamepad = Gamepad.Gamepads.FirstOrDefault();
+
+			if (gamepad != null)
+			{
+				var reading = gamepad.GetCurrentReading();
+				Console.WriteLine("gaming input here");
+				double x = reading.LeftThumbstickX;
+				double y = reading.LeftThumbstickY;
+				Console.WriteLine(x);
+				Console.WriteLine(y);
+
+				Console.WriteLine(reading.ToString());
+			}
 
 
 			// Gametime elapsed
@@ -147,64 +171,76 @@ namespace WindowsFormsApp2
 				{
 					fireMissile();
 				}
-
-				canProcessInput = false; // Disable input processing
-
+				
+				//canProcessInput = false; // Disable input processing
 				// Start the timer to re-enable input processing
-				inputRateLimitTimer.Start();
+				//inputRateLimitTimer.Start();
+				
+				startRateLimting();
 			}
+
+
 			switch (direction) {
 				case "right":
 					{
-
 						returnValue = ((Keyboard.GetKeyStates(Key.Right) & KeyStates.Down) > 0) || ((Keyboard.GetKeyStates(Key.NumPad6) & KeyStates.Down) > 0);
+						
 						break;
 					}
 				case "left":
 					{
 						returnValue = ((Keyboard.GetKeyStates(Key.Left) & KeyStates.Down) > 0) || ((Keyboard.GetKeyStates(Key.NumPad4) & KeyStates.Down) > 0);
+						
 						break;
 					}
 				case "up":
 					{
 						returnValue = ((Keyboard.GetKeyStates(Key.Up) & KeyStates.Down) > 0) || ((Keyboard.GetKeyStates(Key.NumPad8) & KeyStates.Down) > 0);
+						
 						break;
 					}
 				case "down":
 					{
 						returnValue = ((Keyboard.GetKeyStates(Key.Down) & KeyStates.Down) > 0) || ((Keyboard.GetKeyStates(Key.NumPad2) & KeyStates.Down) > 0);
+						
 						break;
 					}
 				case "up-right":
 					{
 						returnValue = ((Keyboard.GetKeyStates(Key.NumPad9) & KeyStates.Down) > 0);
+						
 						break;
 					}
 				case "up-left":
 					{
-						returnValue = ((Keyboard.GetKeyStates(Key.NumPad7) & KeyStates.Down) > 0); 
+						returnValue = ((Keyboard.GetKeyStates(Key.NumPad7) & KeyStates.Down) > 0);
+						
 						break;
 					}
 				case "down-right":
 					{
-						returnValue = ((Keyboard.GetKeyStates(Key.NumPad3) & KeyStates.Down) > 0); 
+						returnValue = ((Keyboard.GetKeyStates(Key.NumPad3) & KeyStates.Down) > 0);
+						
 						break;
 					}
 				case "down-left":
 					{
-						returnValue = ((Keyboard.GetKeyStates(Key.NumPad1) & KeyStates.Down) > 0); 
+						returnValue = ((Keyboard.GetKeyStates(Key.NumPad1) & KeyStates.Down) > 0);
+						
 						break;
 					}
 				case "fire":
 					{
 						returnValue = ((Keyboard.GetKeyStates(Key.Space) & KeyStates.Down) > 0);
+						
 						break;
 					}
 				default:
 					returnValue = false;
 					break;
-
 			}
+
+
 
 			return returnValue;
 
@@ -221,12 +257,10 @@ namespace WindowsFormsApp2
 			{
 				Console.WriteLine("completely missed.");
 			}
-
-			playerSprite.SpriteImage = Properties.Resources.crosshair159;
 			playLaser();
+			playerSprite.SpriteImage = Properties.Resources.crosshair159;
 			await Task.Delay(250);
 			playerSprite.SpriteImage = Properties.Resources.crosshair089;
-
 		}
 
 		private void playLaser() {
@@ -239,6 +273,14 @@ namespace WindowsFormsApp2
 		{
 			canProcessInput = true;		// Re-enable input processing
 			inputRateLimitTimer.Stop(); // Stop the timer until the next keypress
+		}
+
+		private void startRateLimting() {
+			canProcessInput = false; // Disable input processing
+
+			// Start the timer to re-enable input processing
+			inputRateLimitTimer.Start();
+
 		}
 
 		// TODO: Honestly, I'd rather pass the Gamesprite and ShipSprite in as parameters. 
@@ -259,6 +301,26 @@ namespace WindowsFormsApp2
 			await Task.Delay(250);
 			ship.SpriteImage = null;
 		}
+
+		//private void Gamepad_ButtonPressed(Gamepad sender, GamepadButtonEventArgs args)
+		//{
+		//	// Handle button presses here
+		//	// Example: Check if the A button is pressed
+		//	if (args.Button == GamepadButtons.A)
+		//	{
+		//		// Do something when the A button is pressed
+		//	}
+		//}
+
+		//private void Gamepad_ButtonReleased(Gamepad sender, GamepadButtonEventArgs args)
+		//{
+		//	// Handle button releases here
+		//	// Example: Check if the A button is released
+		//	if (args.Button == GamepadButtons.A)
+		//	{
+		//		// Do something when the A button is released
+		//	}
+		//}
 
 	}
 }

@@ -29,12 +29,13 @@ namespace WindowsFormsApp2
 		private void Form1_Load(object sender, EventArgs e)
 		{
 			// Set the window properties (fullsize, not resizable)
-			this.WindowState = FormWindowState.Maximized;
+			this.WindowState = FormWindowState.Minimized;
 			this.FormBorderStyle = FormBorderStyle.FixedSingle;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 
 			Rectangle resolution = Screen.PrimaryScreen.Bounds;
+
 
 			// Initialize Game
 			Game myGame = new Game();
