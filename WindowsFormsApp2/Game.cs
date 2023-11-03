@@ -91,9 +91,14 @@ namespace WindowsFormsApp2
 				Console.WriteLine("gaming input here");
 				double x = reading.LeftThumbstickX;
 				double y = reading.LeftThumbstickY;
-				Console.WriteLine(x);
-				Console.WriteLine(y);
-
+				Console.WriteLine("x: "+x.ToString());
+				Console.WriteLine("y: "+y.ToString());
+				if (reading.Buttons == GamepadButtons.A)
+				{
+					Console.Write("fire!");
+					fireMissile();
+				};
+				
 				Console.WriteLine(reading.ToString());
 			}
 
