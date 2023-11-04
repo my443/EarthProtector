@@ -30,10 +30,14 @@ Graphics for space ships [Spaceart](https://opengameart.org/content/space-shoote
 Graphics for explosions [Smoke Particles](https://kenney.nl/assets/smoke-particles)
 
 ## ScreenShots
+
+#### Starting here
 ![A crosshair and three space ships](/images/EarthDefender-1.png "Starting here")
 
+#### More threats arrive every second
 ![More spaceships appearing on screen](/images/EarthDefender-2.png "More threats arrive every second")
 
+#### A successful hit!
 ![A successful hit](/images/EarthDefender-3.png "A successful hit!")
 
 ## TODOs
