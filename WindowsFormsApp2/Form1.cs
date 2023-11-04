@@ -41,7 +41,7 @@ namespace WindowsFormsApp2
 			Rectangle resolution = Screen.PrimaryScreen.Bounds;
 
 			
-			ScoreLabel.Location = new Point(50, resolution.Height - 150);
+			ScoreLabel.Location = new Point(resolution.Width-750, resolution.Height - 150);
 			ScoreLabel.Text = "Score: 100";
 			ScoreLabel.AutoSize = true;
 			ScoreLabel.BackColor = Color.CornflowerBlue;
@@ -71,7 +71,7 @@ namespace WindowsFormsApp2
 				// Draw game graphics on Form1
 				gameLoop.Draw(e.Graphics);
 				int score = gameLoop._myGame.getScore();
-				UpdateLabelText("Score: " + score.ToString());
+				UpdateLabelText(score.ToString() + " Threats Removed");
 			}
 		}
 
