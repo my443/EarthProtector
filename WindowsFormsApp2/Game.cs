@@ -15,6 +15,7 @@ using Windows.Gaming.UI;
 using System.Reflection.Emit;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.UI.Xaml.Controls;
+using Windows.Media.Capture;
 
 //using System.Windows.Media;
 
@@ -38,7 +39,7 @@ namespace WindowsFormsApp2
 		private int inputRateLimitMilliseconds = 200;
 
 		private int score = 0;
-		
+		private Rectangle resolution = Screen.PrimaryScreen.Bounds;
 		//private bool spaceToggleFlag = false;
 
 		public Size Resolution { get; set; }
@@ -46,7 +47,7 @@ namespace WindowsFormsApp2
 		public void Load()
 		{
 
-			Rectangle resolution = Screen.PrimaryScreen.Bounds;
+			//Rectangle resolution = Screen.PrimaryScreen.Bounds;
 
 			// Load new sprite class
 			playerSprite = new GameSprite();
@@ -170,6 +171,8 @@ namespace WindowsFormsApp2
 		{
 			// Draw Background Color
 			gfx.FillRectangle(new SolidBrush(Color.CornflowerBlue), new Rectangle(0, 0, Resolution.Width, Resolution.Height));
+			
+			listOfSpaceships.Add(createRandomSpaceShip());
 
 			// Draw Graphics
 			foreach (SpaceShip item in listOfSpaceships)
@@ -181,7 +184,7 @@ namespace WindowsFormsApp2
 			playerSprite.Draw(gfx);
 
 			if (explosion != null) {
-			explosion.Draw(gfx);
+				explosion.Draw(gfx);
 			}
 
 		}
@@ -382,6 +385,33 @@ namespace WindowsFormsApp2
 			shipToReturn.Height = shipToReturn.SpriteImage.Height;
 
 			return shipToReturn;
+		}
+
+		private int[] getXYForNewShip() {
+
+			int[] returnArray = new int[2];
+
+			int maxY = resolution.Height - 50;
+			int maxX = resolution.Width;
+			Random randomNumber = new Random();
+
+			int xPos = randomNumber.Next(10, maxX );
+			int yPos = randomNumber.Next( 10, maxY );
+
+			returnArray[0] = xPos;
+			returnArray[1] = yPos;
+
+			return returnArray;
+
+		}
+
+		private SpaceShip createRandomSpaceShip() { 
+			SpaceShip newShip = new SpaceShip();
+
+			int[] XY = getXYForNewShip();
+			newShip = createShip(XY[0], XY[1]);
+
+			return newShip;
 		}
 
 	}
