@@ -28,6 +28,7 @@ namespace WindowsFormsApp2
 		private GameSprite playerSprite;
 		private SoundPlayer laserSound;
 		//private SpaceShip ship;
+		private SpaceShip explosion;
 
 		private List<SpaceShip> listOfSpaceships = new List<SpaceShip>();
 
@@ -178,6 +179,10 @@ namespace WindowsFormsApp2
 
 //			ship.Draw(gfx);
 			playerSprite.Draw(gfx);
+
+			if (explosion != null) {
+			explosion.Draw(gfx);
+			}
 
 		}
 
@@ -331,6 +336,7 @@ namespace WindowsFormsApp2
 			{
 				Console.WriteLine((shipItem.X).ToString()+"--"+ (shipItem.Y).ToString()+ "--"+ (shipItem.Width).ToString()+ "--"+ (shipItem.Height).ToString());
 				Console.WriteLine(playerSprite.X.ToString() + "--" + playerSprite.Y.ToString() + "--" + playerSprite.Width.ToString() + "--" + playerSprite.Height.ToString());
+
 				// You can add more buffer here if you want to be able to be a little further from the target when it is hit.
 				RectangleF shipRectangle = new RectangleF(shipItem.X, shipItem.Y, shipItem.Width, shipItem.Height);
 				RectangleF playerRectangle = new RectangleF(playerSprite.X, playerSprite.Y, playerSprite.Width, playerSprite.Height);
@@ -339,9 +345,8 @@ namespace WindowsFormsApp2
 				{
 					returnValue = true;
 					shipItem.SpriteImage = Properties.Resources.explosion;
-					explodeShip(shipItem, index);
-					
-					//Console.WriteLine("was in the area");
+					explodeShip(shipItem);
+					listOfSpaceships.RemoveAt(index);
 					break;
 				}
 
@@ -354,12 +359,11 @@ namespace WindowsFormsApp2
 		}
 
 		// TODO: Have parameters to identify **which** ship explodes.
-		async Task explodeShip(SpaceShip ship, int index) {
-			ship.SpriteImage = Properties.Resources.explosion;
+		async Task explodeShip(SpaceShip shipItem) {
+			explosion = createShip((int)shipItem.X, (int)shipItem.Y);
+			explosion.SpriteImage = Properties.Resources.explosion;
 			await Task.Delay(250);
-			ship.SpriteImage = null;
-			listOfSpaceships.RemoveAt(index);
-			ship = null;
+			explosion.SpriteImage = null;
 			score++;
 		}
 
