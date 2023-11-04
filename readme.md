@@ -32,6 +32,11 @@ Graphics for explosions [Smoke Particles](https://kenney.nl/assets/smoke-particl
 
 ## TODOs
 
-These are future items that can be improved or addressed. 
+The game is complete to play, but there are a number of things that I would want to do if I wanted to publish this. 
 
 1. The sound and change in crosshairs can be a bit smoother. Even though they are mostly in sync, some attention could be paid to making this even better.
+2. There should be a way to win, and to lose. 
+	-Win: If you get to 100 points then then aliens decide that it isn't worth it to invade earth. 
+	-Lose: If there are too many aliens that appear on the screen. (or if to many get to the bottom - see below.) 
+3. It would be nice to add movement to the aliens. Each ship could have an x, y, and direction (and maybe later a speed.) The aliens could be moving towards earth. 
+4. The aliens, and the crosshairs, should only be allowed to move within the screen (limit where they can go. )
