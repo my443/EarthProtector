@@ -29,6 +29,12 @@ Graphics for space ships [Spaceart](https://opengameart.org/content/space-shoote
 
 Graphics for explosions [Smoke Particles](https://kenney.nl/assets/smoke-particles)
 
+## ScreenShots
+![A crosshair and three space ships](/images/EarthDefender-1.png "Starting here")
+
+![More spaceships appearing on screen](/images/EarthDefender-2.png "More threats arrive every second")
+
+![A successful hit](/images/EarthDefender-3.png "A successful hit!")
 
 ## TODOs
 
@@ -38,6 +44,7 @@ The game is complete to play, but there are a number of things that I would want
 2. There should be a way to win, and to lose. 
 	-Win: If you get to 100 points then then aliens decide that it isn't worth it to invade earth. 
 	-Lose: If there are too many aliens that appear on the screen. (or if to many get to the bottom - see below.) 
+			- Or if too many aliens just get off the screen. - If they leave the area, they can be considered 'out of reach.'
 3. It would be nice to add movement to the aliens. Each ship could have an x, y, and direction (and maybe later a speed.) The aliens could be moving towards earth. 
 4. The aliens, and the crosshairs, should only be allowed to move within the screen (limit where they can go. )
 5. Add a welcome screen and a game-over screen. 
