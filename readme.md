@@ -34,11 +34,13 @@ Graphics for explosions [Smoke Particles](https://kenney.nl/assets/smoke-particl
 #### Starting here
 ![A crosshair and three space ships](/images/EarthDefender-1.png "Starting here")
 
+#### A successful hit!
+![A successful hit](/images/EarthDefender-3.png "A successful hit!")
+
 #### More threats arrive every second
 ![More spaceships appearing on screen](/images/EarthDefender-2.png "More threats arrive every second")
 
-#### A successful hit!
-![A successful hit](/images/EarthDefender-3.png "A successful hit!")
+
 
 ## TODOs
 
