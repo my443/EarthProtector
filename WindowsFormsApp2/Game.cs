@@ -38,6 +38,10 @@ namespace WindowsFormsApp2
 		private bool canProcessInput = true;
 		private int inputRateLimitMilliseconds = 200;
 
+		// For Generating enemies
+		private DateTime gameStart = DateTime.Now;
+		private DateTime lastGenerated = DateTime.Now;
+
 		private int score = 0;
 		private Rectangle resolution = Screen.PrimaryScreen.Bounds;
 		//private bool spaceToggleFlag = false;
@@ -60,7 +64,7 @@ namespace WindowsFormsApp2
 			playerSprite.X = resolution.Width / 2 ;
 			playerSprite.Y = resolution.Bottom - 200;
 			// Set sprite Velocity
-			playerSprite.Velocity = 250;
+			playerSprite.Velocity = 1050;
 
 			laserSound = new SoundPlayer(Properties.Resources.alien_blaster);
 			//laserSound.Play();
@@ -70,7 +74,9 @@ namespace WindowsFormsApp2
 			inputRateLimitTimer.Interval = inputRateLimitMilliseconds;
 			inputRateLimitTimer.Tick += InputRateLimitTimer_Tick;
 			inputRateLimitTimer.Start();
-			
+
+
+			//Initial Ships that are created. 
 			SpaceShip createdship = createShip(200, 200);
 			listOfSpaceships.Add(createdship);
 			createdship = createShip(400, 400);
@@ -171,8 +177,9 @@ namespace WindowsFormsApp2
 		{
 			// Draw Background Color
 			gfx.FillRectangle(new SolidBrush(Color.CornflowerBlue), new Rectangle(0, 0, Resolution.Width, Resolution.Height));
-			
-			listOfSpaceships.Add(createRandomSpaceShip());
+
+			// Add a spaceship at a set interval.
+			addSpaceship();
 
 			// Draw Graphics
 			foreach (SpaceShip item in listOfSpaceships)
@@ -321,6 +328,7 @@ namespace WindowsFormsApp2
 			inputRateLimitTimer.Stop(); // Stop the timer until the next keypress
 		}
 
+
 		private void startRateLimting() {
 			canProcessInput = false; // Disable input processing
 
@@ -337,12 +345,12 @@ namespace WindowsFormsApp2
 
 			foreach (SpaceShip shipItem in listOfSpaceships)
 			{
-				Console.WriteLine((shipItem.X).ToString()+"--"+ (shipItem.Y).ToString()+ "--"+ (shipItem.Width).ToString()+ "--"+ (shipItem.Height).ToString());
-				Console.WriteLine(playerSprite.X.ToString() + "--" + playerSprite.Y.ToString() + "--" + playerSprite.Width.ToString() + "--" + playerSprite.Height.ToString());
+				//Console.WriteLine((shipItem.X).ToString()+"--"+ (shipItem.Y).ToString()+ "--"+ (shipItem.Width).ToString()+ "--"+ (shipItem.Height).ToString());
+				//Console.WriteLine(playerSprite.X.ToString() + "--" + playerSprite.Y.ToString() + "--" + playerSprite.Width.ToString() + "--" + playerSprite.Height.ToString());
 
 				// You can add more buffer here if you want to be able to be a little further from the target when it is hit.
 				RectangleF shipRectangle = new RectangleF(shipItem.X, shipItem.Y, shipItem.Width, shipItem.Height);
-				RectangleF playerRectangle = new RectangleF(playerSprite.X, playerSprite.Y, playerSprite.Width, playerSprite.Height);
+				RectangleF playerRectangle = new RectangleF(playerSprite.X - 50, playerSprite.Y - 50, playerSprite.Width + 100, playerSprite.Height + 100);
 
 				if (playerRectangle.Contains(shipRectangle))
 				{
@@ -395,8 +403,8 @@ namespace WindowsFormsApp2
 			int maxX = resolution.Width;
 			Random randomNumber = new Random();
 
-			int xPos = randomNumber.Next(10, maxX );
-			int yPos = randomNumber.Next( 10, maxY );
+			int xPos = randomNumber.Next(10, maxX-50 );
+			int yPos = randomNumber.Next( 10, maxY-50 );
 
 			returnArray[0] = xPos;
 			returnArray[1] = yPos;
@@ -412,6 +420,18 @@ namespace WindowsFormsApp2
 			newShip = createShip(XY[0], XY[1]);
 
 			return newShip;
+		}
+
+		/**
+		 * Based on a set amount of time, a new spaceship appears. 
+		 * TODO: To make the game harder, you could have the spaceships appear quicker as the game progresses 
+		 *			(based on the gamestart datetime.)
+		 */
+		private void addSpaceship() {
+			if ((DateTime.Now - lastGenerated).TotalSeconds >= 1 ) { 
+				listOfSpaceships.Add(createRandomSpaceShip());
+				lastGenerated = DateTime.Now;
+			}
 		}
 
 	}
