@@ -40,3 +40,5 @@ The game is complete to play, but there are a number of things that I would want
 	-Lose: If there are too many aliens that appear on the screen. (or if to many get to the bottom - see below.) 
 3. It would be nice to add movement to the aliens. Each ship could have an x, y, and direction (and maybe later a speed.) The aliens could be moving towards earth. 
 4. The aliens, and the crosshairs, should only be allowed to move within the screen (limit where they can go. )
+5. Add a welcome screen and a game-over screen. 
+6. Paint stars in the background. 
