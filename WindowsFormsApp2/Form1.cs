@@ -36,6 +36,14 @@ namespace WindowsFormsApp2
 
 			Rectangle resolution = Screen.PrimaryScreen.Bounds;
 
+			Label Mylablel = new Label();
+			Mylablel.Location = new Point(50, resolution.Height - 100);
+			Mylablel.Text = "100";
+			Mylablel.AutoSize = true;
+			Mylablel.BackColor = Color.CornflowerBlue;
+			Mylablel.ForeColor = Color.White;
+			this.Controls.Add(Mylablel);
+
 
 			// Initialize Game
 			Game myGame = new Game();

@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using Windows.Gaming.Input;
 using Windows.Gaming.UI;
+using System.Reflection.Emit;
 
 //using System.Windows.Media;
 
@@ -83,11 +84,15 @@ namespace WindowsFormsApp2
 		public void Update(TimeSpan gameTime)
 		{
 
+
 			gamepad = Gamepad.Gamepads.FirstOrDefault();
+			GamepadReading reading = new GamepadReading(); 
+			reading.LeftThumbstickX = 0;
+			reading.LeftThumbstickY = 0;
 
 			if (gamepad != null)
 			{
-				var reading = gamepad.GetCurrentReading();
+				reading = gamepad.GetCurrentReading();
 				Console.WriteLine("gaming input here");
 				double x = reading.LeftThumbstickX;
 				double y = reading.LeftThumbstickY;
@@ -110,38 +115,38 @@ namespace WindowsFormsApp2
 
 
 			// Move player sprite, when Arrow Keys are pressed on Keyboard
-			if (moveMissileScope("right"))
+			if (moveMissileScope("right", reading))
 			{
 				playerSprite.X += moveDistance;
 			}
-			else if (moveMissileScope("left"))
+			else if (moveMissileScope("left", reading))
 			{
 				playerSprite.X -= moveDistance;
 			}
-			else if (moveMissileScope("up"))
+			else if (moveMissileScope("up", reading))
 			{
 				playerSprite.Y -= moveDistance;
 			}
-			else if (moveMissileScope("down"))
+			else if (moveMissileScope("down", reading))
 			{
 				playerSprite.Y += moveDistance;
 			}
-			else if (moveMissileScope("up-left"))
+			else if (moveMissileScope("up-left", reading))
 			{
 				playerSprite.X -= moveDistance;
 				playerSprite.Y -= moveDistance;
 			}
-			else if (moveMissileScope("up-right"))
+			else if (moveMissileScope("up-right", reading))
 			{
 				playerSprite.X += moveDistance;
 				playerSprite.Y -= moveDistance;
 			}
-			else if (moveMissileScope("down-left"))
+			else if (moveMissileScope("down-left", reading))
 			{
 				playerSprite.X -= moveDistance;
 				playerSprite.Y += moveDistance;
 			}
-			else if (moveMissileScope("down-right"))
+			else if (moveMissileScope("down-right", reading))
 			{
 				playerSprite.X += moveDistance;
 				playerSprite.Y += moveDistance;
@@ -168,7 +173,7 @@ namespace WindowsFormsApp2
 
 		}
 
-		private bool moveMissileScope(string direction)
+		private bool moveMissileScope(string direction, GamepadReading reading)
 		{
 			bool returnValue;
 			if (canProcessInput) {
@@ -187,57 +192,75 @@ namespace WindowsFormsApp2
 
 			switch (direction) {
 				case "right":
-					{
-						returnValue = ((Keyboard.GetKeyStates(Key.Right) & KeyStates.Down) > 0) || ((Keyboard.GetKeyStates(Key.NumPad6) & KeyStates.Down) > 0);
+					{	
+						bool key = ((Keyboard.GetKeyStates(Key.Right) & KeyStates.Down) > 0);
+						bool num = ((Keyboard.GetKeyStates(Key.NumPad6) & KeyStates.Down) > 0);
+						bool gamepad = ((reading.LeftThumbstickX == 1));
+						returnValue = ( key == true || num == true || gamepad == true);
 						
 						break;
 					}
 				case "left":
 					{
-						returnValue = ((Keyboard.GetKeyStates(Key.Left) & KeyStates.Down) > 0) || ((Keyboard.GetKeyStates(Key.NumPad4) & KeyStates.Down) > 0);
-						
+						bool key = ((Keyboard.GetKeyStates(Key.Left) & KeyStates.Down) > 0);
+						bool num = ((Keyboard.GetKeyStates(Key.NumPad4) & KeyStates.Down) > 0);
+						bool gamepad = ((reading.LeftThumbstickX == -1));
+						returnValue = (key == true || num == true || gamepad == true);
 						break;
 					}
 				case "up":
 					{
-						returnValue = ((Keyboard.GetKeyStates(Key.Up) & KeyStates.Down) > 0) || ((Keyboard.GetKeyStates(Key.NumPad8) & KeyStates.Down) > 0);
-						
+						bool key = ((Keyboard.GetKeyStates(Key.Up) & KeyStates.Down) > 0);
+						bool num = ((Keyboard.GetKeyStates(Key.NumPad8) & KeyStates.Down) > 0);
+						bool gamepad = ((reading.LeftThumbstickY == 1));
+						returnValue = (key == true || num == true || gamepad == true);
 						break;
 					}
 				case "down":
 					{
-						returnValue = ((Keyboard.GetKeyStates(Key.Down) & KeyStates.Down) > 0) || ((Keyboard.GetKeyStates(Key.NumPad2) & KeyStates.Down) > 0);
-						
+						bool key = ((Keyboard.GetKeyStates(Key.Down) & KeyStates.Down) > 0);
+						bool num = ((Keyboard.GetKeyStates(Key.NumPad2) & KeyStates.Down) > 0);
+						bool gamepad = ((reading.LeftThumbstickY == -1));
+						returnValue = (key == true || num == true || gamepad == true);
 						break;
 					}
 				case "up-right":
 					{
-						returnValue = ((Keyboard.GetKeyStates(Key.NumPad9) & KeyStates.Down) > 0);
-						
+						bool key = ((Keyboard.GetKeyStates(Key.NumPad9) & KeyStates.Down) > 0);
+						bool gamepadY = ((reading.LeftThumbstickY >= 0.45 && reading.LeftThumbstickY <= 0.95));
+						bool gamepadX = ((reading.LeftThumbstickX >= 0.45 && reading.LeftThumbstickX <= 0.95));
+						returnValue = (key == true || ( gamepadX == true && gamepadY == true));						
 						break;
 					}
 				case "up-left":
 					{
-						returnValue = ((Keyboard.GetKeyStates(Key.NumPad7) & KeyStates.Down) > 0);
-						
+						bool key = ((Keyboard.GetKeyStates(Key.NumPad7) & KeyStates.Down) > 0);
+						bool gamepadY = ((reading.LeftThumbstickY >= 0.45 && reading.LeftThumbstickY <= 0.95));
+						bool gamepadX = ((reading.LeftThumbstickX <= -0.45 && reading.LeftThumbstickX >= -0.95));
+						returnValue = (key == true || (gamepadX == true && gamepadY == true));
 						break;
 					}
 				case "down-right":
 					{
-						returnValue = ((Keyboard.GetKeyStates(Key.NumPad3) & KeyStates.Down) > 0);
-						
+						bool key = ((Keyboard.GetKeyStates(Key.NumPad3) & KeyStates.Down) > 0);
+						bool gamepadY = ((reading.LeftThumbstickY <= -0.45 && reading.LeftThumbstickY >= -0.95));
+						bool gamepadX = ((reading.LeftThumbstickX >= 0.45 && reading.LeftThumbstickX <= 0.95));
+						returnValue = (key == true || (gamepadX == true && gamepadY == true));					
 						break;
 					}
 				case "down-left":
 					{
-						returnValue = ((Keyboard.GetKeyStates(Key.NumPad1) & KeyStates.Down) > 0);
-						
+						bool key = ((Keyboard.GetKeyStates(Key.NumPad1) & KeyStates.Down) > 0);
+						bool gamepadY = ((reading.LeftThumbstickY <= -0.45 && reading.LeftThumbstickY >= -0.95));
+						bool gamepadX = ((reading.LeftThumbstickX <= -0.45 && reading.LeftThumbstickX >= -0.95));
+						returnValue = (key == true || (gamepadX == true && gamepadY == true));					
 						break;
 					}
 				case "fire":
 					{
-						returnValue = ((Keyboard.GetKeyStates(Key.Space) & KeyStates.Down) > 0);
-						
+						bool key = ((Keyboard.GetKeyStates(Key.Space) & KeyStates.Down) > 0);
+						bool buttonA = reading.Buttons == GamepadButtons.A;
+						returnValue = (key == true || buttonA == true);
 						break;
 					}
 				default:
