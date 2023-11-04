@@ -31,6 +31,8 @@ namespace WindowsFormsApp2
 		private Timer inputRateLimitTimer;
 		private bool canProcessInput = true;
 		private int inputRateLimitMilliseconds = 200;
+
+		private int score = 0;
 		
 		//private bool spaceToggleFlag = false;
 
@@ -38,8 +40,6 @@ namespace WindowsFormsApp2
 
 		public void Load()
 		{
-
-
 
 			Rectangle resolution = Screen.PrimaryScreen.Bounds;
 
@@ -276,6 +276,8 @@ namespace WindowsFormsApp2
 
 
 		async Task fireMissile() {
+			//playLaser();
+			laserSound.Play();
 			if (checkIfHitShip())
 			{
 				explodeShip();
@@ -285,7 +287,7 @@ namespace WindowsFormsApp2
 			{
 				Console.WriteLine("completely missed.");
 			}
-			playLaser();
+
 			playerSprite.SpriteImage = Properties.Resources.crosshair159;
 			await Task.Delay(250);
 			playerSprite.SpriteImage = Properties.Resources.crosshair089;
@@ -328,6 +330,11 @@ namespace WindowsFormsApp2
 			ship.SpriteImage = Properties.Resources.explosion;
 			await Task.Delay(250);
 			ship.SpriteImage = null;
+			score += score + 1;
+		}
+
+		public int getScore() { 
+			return score;
 		}
 
 		//private void Gamepad_ButtonPressed(Gamepad sender, GamepadButtonEventArgs args)

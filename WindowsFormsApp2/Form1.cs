@@ -10,10 +10,14 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp2
 {
+
+
+
 	public partial class Form1 : Form
 	{
 		Timer graphicsTimer;
 		GameLoop gameLoop = null;
+		Label ScoreLabel = new Label();
 
 		public Form1()
 		{
@@ -36,13 +40,14 @@ namespace WindowsFormsApp2
 
 			Rectangle resolution = Screen.PrimaryScreen.Bounds;
 
-			Label Mylablel = new Label();
-			Mylablel.Location = new Point(50, resolution.Height - 100);
-			Mylablel.Text = "100";
-			Mylablel.AutoSize = true;
-			Mylablel.BackColor = Color.CornflowerBlue;
-			Mylablel.ForeColor = Color.White;
-			this.Controls.Add(Mylablel);
+			
+			ScoreLabel.Location = new Point(50, resolution.Height - 150);
+			ScoreLabel.Text = "Score: 100";
+			ScoreLabel.AutoSize = true;
+			ScoreLabel.BackColor = Color.CornflowerBlue;
+			ScoreLabel.ForeColor = Color.Black;
+			ScoreLabel.Font = new Font("Arial", 48);
+			this.Controls.Add(ScoreLabel);
 
 
 			// Initialize Game
@@ -57,10 +62,6 @@ namespace WindowsFormsApp2
 
 			// Start Graphics Timer
 			graphicsTimer.Start();
-
-
-
-
 		}
 
 		private void Form1_Paint(object sender, PaintEventArgs e)
@@ -69,6 +70,8 @@ namespace WindowsFormsApp2
 			{
 				// Draw game graphics on Form1
 				gameLoop.Draw(e.Graphics);
+				int score = gameLoop._myGame.getScore();
+				UpdateLabelText("Score: " + score.ToString());
 			}
 		}
 
@@ -76,6 +79,10 @@ namespace WindowsFormsApp2
 		{
 			// Refresh Form1 graphics
 			Invalidate();
+		}
+		public void UpdateLabelText(string newText)
+		{
+			ScoreLabel.Text = newText;
 		}
 	}
 }

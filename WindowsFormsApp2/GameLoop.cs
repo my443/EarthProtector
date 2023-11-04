@@ -9,7 +9,7 @@ namespace WindowsFormsApp2
 {
 	class GameLoop
 	{
-		private Game _myGame;
+		public Game _myGame;
 
 		/// <summary>
 		/// Status of GameLoop
