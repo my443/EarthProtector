@@ -56,7 +56,7 @@ namespace WindowsFormsApp2
 			// Load new sprite class
 			playerSprite = new GameSprite();
 			// Load sprite image
-			playerSprite.SpriteImage = Properties.Resources.crosshair089;
+			playerSprite.SpriteImage = Properties.Resources.crosshairs_smaller;
 			// Set sprite height & width in pixels
 			playerSprite.Width = playerSprite.SpriteImage.Width;
 			playerSprite.Height = playerSprite.SpriteImage.Height;
@@ -64,7 +64,7 @@ namespace WindowsFormsApp2
 			playerSprite.X = resolution.Width / 2 ;
 			playerSprite.Y = resolution.Bottom - 200;
 			// Set sprite Velocity
-			playerSprite.Velocity = 1050;
+			playerSprite.Velocity = 500;
 
 			laserSound = new SoundPlayer(Properties.Resources.alien_blaster);
 			//laserSound.Play();
@@ -313,7 +313,7 @@ namespace WindowsFormsApp2
 
 			playerSprite.SpriteImage = Properties.Resources.crosshair159;
 			await Task.Delay(250);
-			playerSprite.SpriteImage = Properties.Resources.crosshair089;
+			playerSprite.SpriteImage = Properties.Resources.crosshairs_smaller;
 		}
 
 		private void playLaser() {
@@ -350,9 +350,9 @@ namespace WindowsFormsApp2
 
 				// You can add more buffer here if you want to be able to be a little further from the target when it is hit.
 				RectangleF shipRectangle = new RectangleF(shipItem.X, shipItem.Y, shipItem.Width, shipItem.Height);
-				RectangleF playerRectangle = new RectangleF(playerSprite.X - 50, playerSprite.Y - 50, playerSprite.Width + 100, playerSprite.Height + 100);
+				RectangleF playerRectangle = new RectangleF(playerSprite.X, playerSprite.Y, playerSprite.Width, playerSprite.Height);
 
-				if (playerRectangle.Contains(shipRectangle))
+				if (playerRectangle.IntersectsWith(shipRectangle))
 				{
 					returnValue = true;
 					shipItem.SpriteImage = Properties.Resources.explosion;
